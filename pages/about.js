@@ -1,9 +1,10 @@
+import Link from "next/link";
+import Layout from "../components/Layout";
+
 export default function AboutPage() {
   return (
-    <div>
+    <Layout title="About Page">
       <h1>About Page</h1>
-      <p> This is an NextJs App.</p>
-      <p>Version 1.0.0</p>
-    </div>
+    </Layout>
   );
 }
