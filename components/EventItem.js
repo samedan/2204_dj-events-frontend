@@ -5,7 +5,7 @@ import styles from "@/styles/EventItem.module.css";
 
 export default function EventItem({ evt }) {
   const { attributes } = evt;
-  console.log(attributes);
+  // console.log(attributes);
   return (
     <div className={styles.event}>
       <div className={styles.img}>
@@ -21,12 +21,13 @@ export default function EventItem({ evt }) {
       </div>
       <div className={styles.info}>
         <span>
-          {evt.date} @ {evt.time}
+          {new Date(attributes.date).toLocaleDateString("en-US")} @{" "}
+          {attributes.time}
         </span>
-        <h3>{evt.name}</h3>
+        <h3>{attributes.name}</h3>
       </div>
       <div className={styles.link}>
-        <Link href={`/events/${evt.slug}`}>
+        <Link href={`/events/${attributes.slug}`}>
           <a className={"btn"}>Details</a>
         </Link>
       </div>
