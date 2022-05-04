@@ -34,13 +34,17 @@ export default function EventPage({ evt }) {
             {attributes.time}
           </span>
           <h1>{attributes.name}</h1>
-          {attributes && (
+          {attributes.image.data ? (
             <div className={styles.image}>
               <Image
                 src={attributes.image.data.attributes.formats.small.url}
                 width={960}
                 height={600}
               />
+            </div>
+          ) : (
+            <div className={styles.image}>
+              <Image src="/images/event-default.png" width="170" height="100" />
             </div>
           )}
           <h3>Performers: </h3>
