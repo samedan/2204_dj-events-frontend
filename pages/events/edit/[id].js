@@ -2,6 +2,7 @@ import React from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Layout from "@/components/Layout";
+import Modal from "@/components/Modal";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -10,6 +11,7 @@ import styles from "@/styles/Form.module.css";
 import moment from "moment";
 import Image from "next/image";
 import { FaImage } from "react-icons/fa";
+import ImageUpload from "@/components/ImageUpload";
 
 export default function EditEventPage({ evt, id }) {
   // console.log({ evt });
@@ -26,8 +28,22 @@ export default function EditEventPage({ evt, id }) {
   const [imagePreview, setImagePreview] = useState(
     evt.image.data ? evt.image.data.attributes.formats.small.url : null
   );
+  const [showModal, setShowModal] = useState(false);
 
   const router = useRouter();
+
+  const imageUploaded = async () => {
+    const res = await fetch(
+      `${API_URL}/api/events?filters[id]id=${id}&populate=*`
+    );
+    const data = await res.json();
+    // latest image on Strapi
+    console.log("latest image on Strapi", data);
+    setImagePreview(
+      data.data[0].attributes.image.data.attributes.formats.small.url
+    );
+    setShowModal(false);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -164,10 +180,14 @@ export default function EditEventPage({ evt, id }) {
         </div>
       )}
       <div>
-        <button className="btn-secondary">
+        <button onClick={() => setShowModal(true)} className="btn-secondary">
           <FaImage /> Set image
         </button>
       </div>
+      {/* MODAL */}
+      <Modal show={showModal} onClose={() => setShowModal(false)}>
+        <ImageUpload evtId={id} imageUploaded={imageUploaded} />
+      </Modal>
     </Layout>
   );
 }
