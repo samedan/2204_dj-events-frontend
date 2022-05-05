@@ -5,7 +5,7 @@ import styles from "@/styles/EventItem.module.css";
 
 export default function EventItem({ evt }) {
   const { attributes } = evt;
-  console.log(attributes);
+  // console.log(attributes);
   return (
     <div className={styles.event}>
       <div className={styles.img}>
