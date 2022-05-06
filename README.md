@@ -13,6 +13,18 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 /pages/events/index.js -> PER_PAGE
 
+## Auth Context
+
+`/pages/_app.js`
+
+## Config
+
+/config.index.js
+
+## Aliases for paths (@)
+
+/jsconfig.json
+
 ## Getting Started
 
 First, run the development server:
