@@ -39,7 +39,7 @@ export default function LoginPage() {
         <h1>
           <FaUser /> Log in
         </h1>
-        {error && <p>{error}</p>}
+        {error && <p className={styles.error}>{error}</p>}
         <ToastContainer />
         <form onSubmit={handleSubmit}>
           <div>

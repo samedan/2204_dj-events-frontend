@@ -8,6 +8,12 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
 
+  const router = useRouter();
+
+  useEffect(() => {
+    checkUserLoggedIn();
+  }, []);
+
   // Register user
   const register = async (user) => {
     console.log(user);
@@ -31,6 +37,7 @@ export const AuthProvider = ({ children }) => {
     console.log("data in authcontext", data);
     if (res.ok) {
       setUser(data.user);
+      router.push("/account/dashboard");
     } else {
       setError(data.error);
       // setError(null);
@@ -39,12 +46,27 @@ export const AuthProvider = ({ children }) => {
 
   // Logout
   const logout = async () => {
-    console.log("logout");
+    const res = await fetch(`${NEXT_URL}/api/logout`, {
+      method: "POST",
+    });
+    if (res.ok) {
+      setUser(null);
+
+      router.push("/");
+    }
   };
 
   // Check if User is Logged in
   const checkUserLoggedIn = async () => {
-    console.log("check");
+    const res = await fetch(`${NEXT_URL}/api/user`);
+    const data = await res.json();
+    if (res.ok) {
+      console.log("user data set in context");
+      setUser(data.user);
+    } else {
+      console.log("NO user data received");
+      setUser(null);
+    }
   };
 
   return (
