@@ -16,6 +16,13 @@ export default function RegisterPage() {
 
   const { register, error } = useContext(AuthContext);
 
+  useEffect(() => {
+    if (error) {
+      console.log("error", error);
+      toast.error(error);
+    }
+  }, [error]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password !== passwordConfirm) {
